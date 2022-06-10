@@ -17,5 +17,9 @@ angular.module('appModule')
         name: 'team-performance',
         url: '/team-performance',
         template: '<v-performance-page></v-performance-page>',
-      });
+      })
+      .state('all', {
+        url: "/{params:.*}",
+        template: "<v-notfound-page></v-notfound-page>"
+    });
   });
