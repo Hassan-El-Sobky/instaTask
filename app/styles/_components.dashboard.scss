@@ -34,13 +34,20 @@
   padding: 16px 8px;
   border: 1px solid #dcdee3;
   background-color: #e5e9f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .c-chart__container {
   height: 350px;
   width: 760px;
 }
-
+.c-searchWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .c-button {
   height: 40px;
   background-color: #0099ff;
