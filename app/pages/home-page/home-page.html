@@ -6,9 +6,22 @@
 
   <employees-list employees-list="homePageVm.employees"></employees-list>
 
-  <div class="c-dashboard__footer">
-    <button class="c-button">
+  <div  class="c-dashboard__footer">
+    <div ng-hide="!homePageVm.Loader" class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+    <button 
+     ng-click="homePageVm.loadMore()"
+     ng-disabled="homePageVm.Loader"
+     ng-hide="homePageVm.currentPage===homePageVm.pageCount"
+      class="c-button">
       Load More
     </button>
+    <h3 ng-hide="homePageVm.currentPage<homePageVm.pageCount">All Employees</h3>
   </div>
 </div>
