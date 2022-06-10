@@ -16,7 +16,6 @@ import {
   VisualMapComponent,
 } from "echarts/components";
 import VChart from "vue-echarts";
-
 use([
   CanvasRenderer,
   LineChart,
@@ -25,14 +24,11 @@ use([
   GridComponent,
   VisualMapComponent,
 ]);
-
 export default {
   name: "PerformanceChartComponent",
-
   components: {
     VChart,
   },
-
   data() {
     return {
       chartData: [
@@ -67,7 +63,6 @@ export default {
       ],
     };
   },
-
   computed: {
     initOptions() {
       return {
@@ -75,7 +70,6 @@ export default {
         height: "300px",
       };
     },
-
     chartOptions() {
       return {
         title: {
@@ -83,11 +77,20 @@ export default {
           left: "center",
         },
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           transitionDuration: 0,
           confine: false,
           hideDelay: 0,
           padding: 0,
+          formatter: function (params) {
+            return `
+              <div class="c-chart__tooltip">
+                <strong>${params[0].axisValueLabel}</strong>
+                <div>
+                  ${params[0].marker}
+                  <span>Team Performance Index: ${params[0].value.toFixed(0)}%</span>
+              </div>`;
+          },
         },
         grid: {
           left: "30px",
@@ -115,6 +118,25 @@ export default {
           axisTick: { show: true },
           splitLine: { show: true },
         },
+        visualMap: {
+          show: false,
+          dimension: 1,
+          pieces: [
+            {
+              lt: 50,
+              color: "red",
+            },
+            {
+              gte: 50,
+              lte: 80,
+              color: "yellow",
+            },
+            {
+              gt: 80,
+              color: "green",
+            },
+          ],
+        },
         series: [
           {
             data: this.yAxisData,
@@ -129,16 +151,13 @@ export default {
         ],
       };
     },
-
     xAxisData() {
       return this.chartData.map((item) => this.formatDate(item.date_ms));
     },
-
     yAxisData() {
       return this.chartData.map((item) => +item.performance * 100);
     },
   },
-
   methods: {
     formatDate(dateInMs) {
       return moment(dateInMs).format("DD MMM YYYY");
